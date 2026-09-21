@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 전자정보박람회 (E-Information Expo 2026)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Pretendard/Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans KR"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              900: '#0c4a6e',
+            },
+            accent: {
+              400: '#38bdf8',
+              500: '#06b6d4',
+              600: '#0891b2',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* 커스텀 글래스모피즘 및 애니메이션 효과 */
+    .glass-nav {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .hero-gradient {
+      background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.25) 0%, rgba(15, 23, 42, 0) 70%);
+    }
+    .card-glass {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-white">
+
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-slate-800/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- 로고 -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-cube text-xl"></i>
+        </div>
+        <div>
+          <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase block">E-Info Expo</span>
+          <span class="text-lg font-extrabold tracking-tight text-white group-hover:text-cyan-300 transition-colors">2026 전자정보박람회</span>
+        </div>
+      </a>
+
+      <!-- 데스크톱 네비게이션 -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#about" class="hover:text-cyan-400 transition-colors">박람회 소개</a>
+        <a href="#tracks" class="hover:text-cyan-400 transition-colors">전시 테마</a>
+        <a href="#exhibitors" class="hover:text-cyan-400 transition-colors">참가 기관</a>
+        <a href="#schedule" class="hover:text-cyan-400 transition-colors">세미나 일정</a>
+        <a href="#stamp-event" class="hover:text-cyan-400 transition-colors">스탬프 이벤트</a>
+      </nav>
+
+      <!-- CTA 버튼 -->
+      <div class="hidden md:flex items-center gap-4">
+        <button onclick="openRegisterModal()" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-lg shadow-cyan-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+          사전등록 신청
+        </button>
+      </div>
+
+      <!-- 모바일 햄버거 메뉴 버튼 -->
+      <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-white p-2 text-xl focus:outline-none" aria-label="메뉴 열기">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- 모바일 메뉴 드롭다운 -->
+    <div id="mobileMenu" class="hidden md:hidden px-6 pt-2 pb-6 bg-slate-900 border-b border-slate-800 flex flex-col gap-4 text-sm font-medium">
+      <a href="#about" class="py-2 text-slate-300 hover:text-cyan-400" onclick="toggleMobileMenu()">박람회 소개</a>
+      <a href="#tracks" class="py-2 text-slate-300 hover:text-cyan-400" onclick="toggleMobileMenu()">전시 테마</a>
+      <a href="#exhibitors" class="py-2 text-slate-300 hover:text-cyan-400" onclick="toggleMobileMenu()">참가 기관</a>
+      <a href="#schedule" class="py-2 text-slate-300 hover:text-cyan-400" onclick="toggleMobileMenu()">세미나 일정</a>
+      <a href="#stamp-event" class="py-2 text-slate-300 hover:text-cyan-400" onclick="toggleMobileMenu()">스탬프 이벤트</a>
+      <button onclick="openRegisterModal(); toggleMobileMenu();" class="w-full py-3 rounded-xl font-bold text-center text-white bg-cyan-600 hover:bg-cyan-500">
+        사전등록 신청하기
+      </button>
+    </div>
+  </header>
+
+  <section class="relative pt-32 pb-24 md:pt-44 md:pb-36 overflow-hidden hero-gradient">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      
+      <!-- 상태 배지 -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs sm:text-sm font-semibold mb-6 animate-pulse">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        2026. 10. 15(목) — 10. 17(토) | 글로벌 컨벤션 센터
+      </div>
+
+      <!-- 메인 타이틀 -->
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight md:leading-none mb-6">
+        지식 데이터와 AI의 만남, <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500">
+          2026 전자정보박람회
+        </span>
+      </h1>
+
+      <!-- 서브텍스트 -->
+      <p class="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+        글로벌 학술 데이터베이스, 생성형 AI 검색 엔진, 차세대 전자저널까지.<br class="hidden sm:block">
+        미래 연구 및 지식 탐색을 혁신하는 최첨단 전자정보 솔루션을 직접 경험하세요.
+      </p>
+
+      <!-- 액션 버튼 -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <button onclick="openRegisterModal()" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-xl shadow-cyan-500/30 transition-all transform hover:-translate-y-1">
+          <i class="fa-solid fa-ticket-simple mr-2"></i>무료 사전등록 하기
+        </button>
+        <a href="#exhibitors" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold text-slate-200 card-glass hover:bg-slate-800/80 transition-all border border-slate-700">
+          참가 부스 살펴보기
+        </a>
+      </div>
+
+      <!-- D-DAY 카운트다운 컴포넌트 -->
+      <div class="max-w-xl mx-auto card-glass rounded-2xl p-6 border border-cyan-500/20 shadow-2xl">
+        <p class="text-xs uppercase tracking-widest text-slate-400 font-semibold mb-4 text-center">EXPO COUNTDOWN</p>
+        <div class="grid grid-cols-4 gap-3 text-center">
+          <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+            <span id="cd-days" class="text-2xl sm:text-3xl font-extrabold text-cyan-400 block">24</span>
+            <span class="text-[11px] text-slate-400 font-medium">일</span>
+          </div>
+          <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+            <span id="cd-hours" class="text-2xl sm:text-3xl font-extrabold text-white block">08</span>
+            <span class="text-[11px] text-slate-400 font-medium">시간</span>
+          </div>
+          <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+            <span id="cd-minutes" class="text-2xl sm:text-3xl font-extrabold text-white block">42</span>
+            <span class="text-[11px] text-slate-400 font-medium">분</span>
+          </div>
+          <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+            <span id="cd-seconds" class="text-2xl sm:text-3xl font-extrabold text-white block">19</span>
+            <span class="text-[11px] text-slate-400 font-medium">초</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-12 border-y border-slate-800/80 bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="p-4">
+          <div class="text-3xl sm:text-4xl font-extrabold text-cyan-400 mb-1">50+</div>
+          <div class="text-xs sm:text-sm text-slate-400 font-medium">국내외 참가 기관 및 출판사</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl sm:text-4xl font-extrabold text-sky-400 mb-1">120+</div>
+          <div class="text-xs sm:text-sm text-slate-400 font-medium">전시 전자정보 및 DB 솔루션</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl sm:text-4xl font-extrabold text-blue-400 mb-1">20+</div>
+          <div class="text-xs sm:text-sm text-slate-400 font-medium">연구자 학술 세미나 & 워크숍</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl sm:text-4xl font-extrabold text-indigo-400 mb-1">5,000+</div>
+          <div class="text-xs sm:text-sm text-slate-400 font-medium">예상 연구원·학생 참관객</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tracks" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-xs font-bold tracking-widest text-cyan-400 uppercase mb-2">EXHIBITION TRACKS</h2>
+      <p class="text-3xl sm:text-4xl font-extrabold text-white">2026 핵심 전시 테마</p>
+      <p class="text-slate-400 text-sm sm:text-base mt-3">최신 학술 동향과 첨단 데이터 기술을 4가지 핵심 트랙으로 분류했습니다.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- 트랙 1 -->
+      <div class="card-glass p-6 rounded-2xl border border-slate-800 hover:border-cyan-500/50 transition-all group hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-robot"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">AI 연구 도구 & 검색</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          LLM 기반의 논문 요약, 자동 문헌 추천, 시맨틱 검색 등 연구 속도를 극대화하는 생성형 AI 기술.
+        </p>
+      </div>
+
+      <!-- 트랙 2 -->
+      <div class="card-glass p-6 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition-all group hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-book-bookmark"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">글로벌 학술 DB</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          국제 표준 인용 데이터베이스, 의학·공학·인문사회 핵심 저널 및 글로벌 원문 데이터베이스 컬렉션.
+        </p>
+      </div>
+
+      <!-- 트랙 3 -->
+      <div class="card-glass p-6 rounded-2xl border border-slate-800 hover:border-blue-500/50 transition-all group hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">연구 윤리 & 표절 예방</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          AI 생성물 감지, 논문 유사도 검사 및 신뢰할 수 있는 학술 연구 환경을 뒷받침하는 윤리 플랫폼.
+        </p>
+      </div>
+
+      <!-- 트랙 4 -->
+      <div class="card-glass p-6 rounded-2xl border border-slate-800 hover:border-indigo-500/50 transition-all group hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-network-wired"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">스마트 전자 도서관</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          차세대 통합 전자도서 솔루션(E-Book), 오디오북, 아카이브 디지털 큐레이션 및 모바일 대출 시스템.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="exhibitors" class="py-20 bg-slate-900/30 border-y border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <h2 class="text-xs font-bold tracking-widest text-cyan-400 uppercase mb-2">EXHIBITORS & PRODUCTS</h2>
+          <p class="text-3xl sm:text-4xl font-extrabold text-white">참가 부스 및 데이터베이스 검색</p>
+          <p class="text-slate-400 text-sm mt-2">관심 있는 데이터베이스 및 기관명을 검색하거나 카테고리별로 필터링하세요.</p>
+        </div>
+
+        <!-- 검색창 및 필터 컨트롤 -->
+        <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <div class="relative flex-1 sm:w-64">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+            <input 
+              type="text" 
+              id="exhibitorSearchInput" 
+              placeholder="기관명 또는 DB 이름 검색..." 
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 transition-colors"
+            >
+          </div>
+          <select id="categoryFilter" class="px-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
+            <option value="all">전체 분야</option>
+            <option value="ai">AI / 분석</option>
+            <option value="db">학술 DB / 저널</option>
+            <option value="ebook">전자책 / 도서관</option>
+            <option value="ethics">연구윤리 / 표절</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 동적 렌더링 카드 그리드 -->
+      <div id="exhibitorGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- JS로 채워짐 -->
+      </div>
+    </div>
+  </section>
+
+  <section id="schedule" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-xs font-bold tracking-widest text-cyan-400 uppercase mb-2">PROGRAM SCHEDULE</h2>
+      <p class="text-3xl sm:text-4xl font-extrabold text-white">행사 일정 및 세미나 세션</p>
+      <p class="text-slate-400 text-sm sm:text-base mt-3">주요 특강과 제품 설명회 타임테이블입니다.</p>
+      
+      <!-- Day 탭 버튼 -->
+      <div class="inline-flex rounded-xl p-1 bg-slate-900 border border-slate-800 mt-8">
+        <button id="day1Tab" onclick="switchDay(1)" class="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all bg-cyan-500 text-white shadow-md">
+          Day 1 (10월 15일)
+        </button>
+        <button id="day2Tab" onclick="switchDay(2)" class="px-6 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all">
+          Day 2 (10월 16일)
+        </button>
+      </div>
+    </div>
+
+    <!-- 스케줄 리스트 컨테이너 -->
+    <div id="scheduleContainer" class="max-w-4xl mx-auto space-y-4">
+      <!-- JavaScript로 렌더링 -->
+    </div>
+  </section>
+
+  <section id="stamp-event" class="py-20 bg-gradient-to-b from-slate-950 via-slate-900/60 to-slate-950 border-t border-slate-800/80">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="card-glass rounded-3xl p-8 sm:p-12 border border-cyan-500/30 text-center relative overflow-hidden">
+        <div class="absolute -right-16 -top-16 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <span class="inline-block px-4 py-1 rounded-full text-xs font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-500/30 mb-4">
+          참관객 현장 경품 이벤트
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">
+          부스 탐방 디지털 스탬프 랠리
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mb-8 font-light">
+          박람회 현장에서 부스를 둘러보며 스탬프 4개를 모아보세요! 현장 추첨을 통해 최신 태블릿, 전자기기 및 기념품을 증정합니다. 아래 스탬프를 눌러 미리 체험해 보세요.
+        </p>
+
+        <!-- 스탬프 4구 그리드 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto mb-8">
+          <div onclick="collectStamp(1)" id="stamp-1" class="cursor-pointer p-5 rounded-2xl border-2 border-dashed border-slate-700 hover:border-cyan-400 bg-slate-900/50 transition-all flex flex-col items-center justify-center gap-2 group">
+            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-500 group-hover:text-cyan-400 text-lg transition-colors">
+              <i class="fa-solid fa-fingerprint"></i>
+            </div>
+            <span class="text-xs font-semibold text-slate-300">A존 학술DB</span>
+            <span class="text-[10px] text-slate-500 status-tag">클릭하여 인증</span>
+          </div>
+
+          <div onclick="collectStamp(2)" id="stamp-2" class="cursor-pointer p-5 rounded-2xl border-2 border-dashed border-slate-700 hover:border-cyan-400 bg-slate-900/50 transition-all flex flex-col items-center justify-center gap-2 group">
+            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-500 group-hover:text-cyan-400 text-lg transition-colors">
+              <i class="fa-solid fa-fingerprint"></i>
+            </div>
+            <span class="text-xs font-semibold text-slate-300">B존 AI도구</span>
+            <span class="text-[10px] text-slate-500 status-tag">클릭하여 인증</span>
+          </div>
+
+          <div onclick="collectStamp(3)" id="stamp-3" class="cursor-pointer p-5 rounded-2xl border-2 border-dashed border-slate-700 hover:border-cyan-400 bg-slate-900/50 transition-all flex flex-col items-center justify-center gap-2 group">
+            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-500 group-hover:text-cyan-400 text-lg transition-colors">
+              <i class="fa-solid fa-fingerprint"></i>
+            </div>
+            <span class="text-xs font-semibold text-slate-300">C존 전자책</span>
+            <span class="text-[10px] text-slate-500 status-tag">클릭하여 인증</span>
+          </div>
+
+          <div onclick="collectStamp(4)" id="stamp-4" class="cursor-pointer p-5 rounded-2xl border-2 border-dashed border-slate-700 hover:border-cyan-400 bg-slate-900/50 transition-all flex flex-col items-center justify-center gap-2 group">
+            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-500 group-hover:text-cyan-400 text-lg transition-colors">
+              <i class="fa-solid fa-fingerprint"></i>
+            </div>
+            <span class="text-xs font-semibold text-slate-300">D존 세미나참석</span>
+            <span class="text-[10px] text-slate-500 status-tag">클릭하여 인증</span>
+          </div>
+        </div>
+
+        <div id="stampProgressMsg" class="text-sm font-medium text-cyan-300">
+          모의 스탬프를 클릭하여 수집을 완료해보세요. (진행도: 0 / 4)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-800 py-12 bg-slate-950 text-slate-400 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-cyan-600 flex items-center justify-center text-white font-bold">
+            <i class="fa-solid fa-cube text-sm"></i>
+          </div>
+          <div>
+            <p class="text-white font-bold">2026 전자정보박람회 조직위원회</p>
+            <p class="text-xs text-slate-400">행사 문의: expo2026@e-info.or.kr | 대표전화: 02-555-2026</p>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 text-center md:text-right">
+          © 2026 E-Information Expo. All rights reserved. 개인정보처리방침 | 이용약관
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="registerModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-lg p-6 sm:p-8 relative shadow-2xl animate-fade-in">
+      
+      <!-- 닫기 버튼 -->
+      <button onclick="closeRegisterModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="mb-6">
+        <span class="text-xs font-bold text-cyan-400 tracking-wider uppercase">Online Registration</span>
+        <h3 class="text-2xl font-bold text-white mt-1">2026 전자정보박람회 사전등록</h3>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">무료 사전등록 시 현장 빠른 입장 및 기념품 교환권이 제공됩니다.</p>
+      </div>
+
+      <form id="registerForm" onsubmit="handleRegistration(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">성명 <span class="text-red-400">*</span></label>
+          <input type="text" required id="regName" placeholder="홍길동" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">소속 기관 / 대학 / 회사 <span class="text-red-400">*</span></label>
+          <input type="text" required id="regAffiliation" placeholder="한국대학교 도서관 / OO연구소" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">이메일 주소 <span class="text-red-400">*</span></label>
+          <input type="email" required id="regEmail" placeholder="example@university.ac.kr" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">주요 관심 분야</label>
+          <select id="regInterest" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
+            <option value="AI 연구 도구">생성형 AI 및 학술 연구 분석 도구</option>
+            <option value="학술 DB / 저널">글로벌 저널 및 인용 색인 DB</option>
+            <option value="전자책 / 멀티미디어">대학 전자책(E-Book) 및 오디오북</option>
+            <option value="연구 윤리 솔루션">표절 검증 및 연구 윤리 플랫폼</option>
+          </select>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full py-3.5 rounded-xl font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/25">
+            사전등록 완료하기 (무료)
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+  <script>
+    // 1. 참가 기관 및 전시 품목 모의 데이터
+    const exhibitorsData = [
+      {
+        id: 1,
+        name: "글로벌 사이언스 다이렉트",
+        category: "db",
+        categoryName: "학술 DB",
+        booth: "A-01",
+        description: "전 세계 최고 권위의 과학기술 및 의학 분야 피어리뷰 전자저널 풀텍스트 데이터베이스.",
+        badge: "인기 부스",
+        icon: "fa-book-atlas"
+      },
+      {
+        id: 2,
+        name: "인텔리젠스 AI 서치",
+        category: "ai",
+        categoryName: "AI / 분석",
+        booth: "B-03",
+        description: "수천만 건의 연구 논문을 즉각 요약하고 연구 가설을 연결해주는 차세대 학술 AI 엔진.",
+        badge: "2026 신제품",
+        icon: "fa-microchip"
+      },
+      {
+        id: 3,
+        name: "국내 학술 지식 포털 (K-Scholar)",
+        category: "db",
+        categoryName: "학술 DB",
+        booth: "A-05",
+        description: "국내 4,000여 개 학회 및 연구소의 학술지, 학위논문, 학술대회 발표자료 총망라.",
+        badge: "공식 파트너",
+        icon: "fa-graduation-cap"
+      },
+      {
+        id: 4,
+        name: "스마트 북스 아카이브",
+        category: "ebook",
+        categoryName: "전자책 / 도서관",
+        booth: "C-02",
+        description: "대학 및 기관 맞춤형 동시 접속 무제한 전자책 플랫폼과 디지털 큐레이션 서비스.",
+        badge: "체험 가능",
+        icon: "fa-tablet-screen-button"
+      },
+      {
+        id: 5,
+        name: "베리파이 에틱스 (Verify Ethics)",
+        category: "ethics",
+        categoryName: "연구윤리",
+        booth: "D-01",
+        description: "LLM 생성물 감지 알고리즘 탑재, 다국어 실시간 표절 검사 및 연구 무결성 검증 시스템.",
+        badge: "핵심 솔루션",
+        icon: "fa-shield-halved"
+      },
+      {
+        id: 6,
+        name: "데이터비즈 애널리틱스",
+        category: "ai",
+        categoryName: "AI / 분석",
+        booth: "B-07",
+        description: "글로벌 연구 성과 지표(FWCI, H-index) 및 기관별 공동연구 네트워크 시각화 분석 솔루션.",
+        badge: "데모 시연",
+        icon: "fa-chart-pie"
+      }
+    ];
+
+    // 2. 세미나 스케줄 데이터
+    const scheduleData = {
+      1: [
+        { time: "10:30 - 11:30", title: "생성형 AI 시대, 연구 문헌 탐색 패러다임의 변화", speaker: "김현우 박사 (AI 지식공학 연구소)", room: "메인 컨퍼런스 홀 A" },
+        { time: "13:30 - 14:30", title: "글로벌 핵심 저널 인용 지수 분석 및 투고 전략 세미나", speaker: "Sarah Jenkins (Senior Editor, Global Sci)", room: "세미나룸 101" },
+        { time: "15:00 - 16:00", title: "대학 도서관 맞춤형 전자자료 관리(ERM) 모범 사례", speaker: "이진아 팀장 (대학학술정보협의회)", room: "세미나룸 102" }
+      ],
+      2: [
+        { time: "10:30 - 11:30", title: "연구 무결성과 AI 윤리: 표절 판별 기술의 현주소", speaker: "박동준 교수 (연구윤리진흥센터)", room: "메인 컨퍼런스 홀 A" },
+        { time: "14:00 - 15:30", title: "전자정보 솔루션 벤더 피칭 및 우수 데이터베이스 시상식", speaker: "2026 조직위원회", room: "그랜드 볼룸" }
+      ]
+    };
+
+    // 스탬프 수집 상태
+    let collectedStamps = new Set();
+
+    // 토스트 알림 함수
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.className = `pointer-events-auto px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 text-sm font-medium transition-all duration-300 transform translate-y-4 text-white border ${
+        type === "success" 
+          ? "bg-slate-900/95 border-cyan-500 text-cyan-300" 
+          : "bg-slate-900/95 border-slate-700 text-slate-200"
+      }`;
+      
+      const iconClass = type === "success" ? "fa-circle-check text-cyan-400" : "fa-bell text-sky-400";
+      toast.innerHTML = `<i class="fa-solid ${iconClass}"></i><span>${message}</span>`;
+      
+      container.appendChild(toast);
+      
+      // 애니메이션 유입
+      requestAnimationFrame(() => {
+        toast.classList.remove("translate-y-4");
+      });
+
+      setTimeout(() => {
+        toast.classList.add("opacity-0", "translate-y-2");
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // 카운트다운 타이머 (가상 일자 기준)
+    function initCountdown() {
+      // 2026년 10월 15일 10:00 KST
+      const targetDate = new Date("2026-10-15T10:00:00+09:00").getTime();
+
+      function update() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          document.getElementById("cd-days").textContent = "00";
+          document.getElementById("cd-hours").textContent = "00";
+          document.getElementById("cd-minutes").textContent = "00";
+          document.getElementById("cd-seconds").textContent = "00";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("cd-days").textContent = String(days).padStart(2, '0');
+        document.getElementById("cd-hours").textContent = String(hours).padStart(2, '0');
+        document.getElementById("cd-minutes").textContent = String(minutes).padStart(2, '0');
+        document.getElementById("cd-seconds").textContent = String(seconds).padStart(2, '0');
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    // 부스 목록 렌더링
+    function renderExhibitors(filteredList) {
+      const container = document.getElementById("exhibitorGrid");
+      if (filteredList.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-500">
+            <i class="fa-solid fa-folder-open text-4xl mb-3 block"></i>
+            <p class="text-base font-medium">검색 조건에 해당하는 부스나 기관이 없습니다.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filteredList.map(item => `
+        <div class="card-glass p-6 rounded-2xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-800 text-cyan-300 border border-slate-700">
+                부스 ${item.booth}
+              </span>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                ${item.badge}
+              </span>
+            </div>
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-lg bg-slate-800 text-cyan-400 flex items-center justify-center">
+                <i class="fa-solid ${item.icon}"></i>
+              </div>
+              <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">${item.name}</h3>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-6 font-light">
+              ${item.description}
+            </p>
+          </div>
+          <button onclick="handleExhibitorBookmark('${item.name}')" class="w-full py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 transition-colors border border-slate-700 flex items-center justify-center gap-2">
+            <i class="fa-regular fa-star"></i> 관심 부스 저장
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // 검색 및 필터링 로직
+    function filterExhibitors() {
+      const query = document.getElementById("exhibitorSearchInput").value.toLowerCase();
+      const category = document.getElementById("categoryFilter").value;
+
+      const filtered = exhibitorsData.filter(item => {
+        const matchesQuery = item.name.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
+        const matchesCategory = category === "all" || item.category === category;
+        return matchesQuery && matchesCategory;
+      });
+
+      renderExhibitors(filtered);
+    }
+
+    // 세미나 일정 탭 변경
+    function switchDay(day) {
+      const tab1 = document.getElementById("day1Tab");
+      const tab2 = document.getElementById("day2Tab");
+      const container = document.getElementById("scheduleContainer");
+
+      if (day === 1) {
+        tab1.className = "px-6 py-2.5 rounded-lg text-sm font-semibold transition-all bg-cyan-500 text-white shadow-md";
+        tab2.className = "px-6 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all";
+      } else {
+        tab2.className = "px-6 py-2.5 rounded-lg text-sm font-semibold transition-all bg-cyan-500 text-white shadow-md";
+        tab1.className = "px-6 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all";
+      }
+
+      const sessions = scheduleData[day];
+      container.innerHTML = sessions.map(s => `
+        <div class="card-glass p-5 sm:p-6 rounded-2xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-slate-700 transition-colors">
+          <div>
+            <span class="inline-block text-xs font-bold text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded border border-cyan-900/60 mb-2">
+              ${s.time}
+            </span>
+            <h4 class="text-base font-bold text-white">${s.title}</h4>
+            <p class="text-xs text-slate-400 mt-1"><i class="fa-solid fa-user-tie mr-1 text-slate-500"></i> ${s.speaker}</p>
+          </div>
+          <div class="text-xs font-semibold text-slate-400 sm:text-right bg-slate-800/60 sm:bg-transparent px-3 py-1.5 sm:p-0 rounded-lg">
+            <i class="fa-solid fa-location-dot text-sky-400 mr-1"></i> ${s.room}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 스탬프 수집 인터랙션
+    function collectStamp(index) {
+      const stampEl = document.getElementById(`stamp-${index}`);
+      if (collectedStamps.has(index)) {
+        showToast("이미 획득한 스탬프입니다!", "info");
+        return;
+      }
+
+      collectedStamps.add(index);
+      stampEl.classList.remove("border-dashed", "border-slate-700");
+      stampEl.classList.add("border-solid", "border-cyan-400", "bg-cyan-950/30");
+      
+      const icon = stampEl.querySelector("i");
+      icon.className = "fa-solid fa-certificate text-cyan-400";
+      
+      const tag = stampEl.querySelector(".status-tag");
+      tag.textContent = "인증 완료";
+      tag.className = "text-[10px] text-cyan-400 font-bold status-tag";
+
+      const count = collectedStamps.size;
+      const msg = document.getElementById("stampProgressMsg");
+      
+      if (count === 4) {
+        msg.innerHTML = "🎉 축하합니다! 모든 스탬프(4/4)를 수집하여 <strong>현장 VIP 경품 응모 자격</strong>을 획득하셨습니다!";
+        showToast("축하합니다! 모든 스탬프를 모으셨습니다.", "success");
+      } else {
+        msg.textContent = `스탬프 ${count}/4 획득 완료! 계속해서 탐색해 보세요.`;
+        showToast(`스탬프를 획득했습니다! (${count}/4)`, "success");
+      }
+    }
+
+    // 모달 제어
+    function openRegisterModal() {
+      document.getElementById("registerModal").classList.remove("hidden");
+    }
+
+    function closeRegisterModal() {
+      document.getElementById("registerModal").classList.add("hidden");
+    }
+
+    // 모바일 메뉴 토글
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.classList.toggle("hidden");
+    }
+
+    // 사전등록 폼 제출 처리
+    function handleRegistration(e) {
+      e.preventDefault();
+      const name = document.getElementById("regName").value.trim();
+      const affiliation = document.getElementById("regAffiliation").value.trim();
+      
+      closeRegisterModal();
+      showToast(`${name}님(${affiliation}), 사전등록이 정상 접수되었습니다.`, "success");
+      e.target.reset();
+    }
+
+    // 관심 부스 저장 처리
+    function handleExhibitorBookmark(name) {
+      showToast(`'${name}' 부스가 관심 목록에 저장되었습니다.`, "success");
+    }
+
+    // 초기 이벤트 바인딩
+    window.addEventListener("DOMContentLoaded", () => {
+      initCountdown();
+      renderExhibitors(exhibitorsData);
+      switchDay(1);
+
+      document.getElementById("exhibitorSearchInput").addEventListener("input", filterExhibitors);
+      document.getElementById("categoryFilter").addEventListener("change", filterExhibitors);
+      document.getElementById("mobileMenuBtn").addEventListener("click", toggleMobileMenu);
+
+      // 모달 바깥 배경 클릭 시 닫기
+      document.getElementById("registerModal").addEventListener("click", (e) => {
+        if (e.target.id === "registerModal") closeRegisterModal();
+      });
+    });
+  </script>
+</body>
+</html>
